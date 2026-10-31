@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183b32">
+  <title>Railway Reservation System</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Railway desk home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>RAILWAY <b>DESK</b></span>
+    </a>
+    <div class="service-status"><span class="status-dot"></span> Reservation desk <span class="status-divider">/</span> Local service</div>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">YOUR JOURNEY, IN GOOD ORDER</p>
+        <h1 id="page-title">Reservations<span class="title-period">.</span></h1>
+        <p class="intro-copy">Choose a train, reserve a seat, and keep every trip on track.</p>
+      </div>
+      <div class="today-block"><span class="today-label">TODAY</span><time id="today-date"></time></div>
+    </section>
+
+    <section class="summary" aria-label="Reservation overview">
+      <div class="summary-item"><span class="summary-label">SCHEDULED TRAINS</span><strong id="train-count">--</strong></div>
+      <div class="summary-item"><span class="summary-label">SEATS AVAILABLE</span><strong id="seat-count">--</strong></div>
+      <div class="summary-item"><span class="summary-label">ACTIVE BOOKINGS</span><strong id="booking-count">--</strong></div>
+      <div class="summary-route" aria-hidden="true"><span>MUM</span><i></i><span>GOA</span><i></i><span>DEL</span></div>
+    </section>
+
+    <div class="workspace-grid">
+      <section class="booking-panel" aria-labelledby="booking-title">
+        <div class="section-heading booking-heading">
+          <div><p class="eyebrow">TICKET OFFICE</p><h2 id="booking-title">New booking</h2></div>
+          <span class="heading-index">01</span>
+        </div>
+        <form id="booking-form">
+          <label for="train-select">Train</label>
+          <select id="train-select" name="trainNumber" required></select>
+          <div class="form-row">
+            <div class="field-grow"><label for="passenger">Passenger name</label><input id="passenger" name="passenger" type="text" placeholder="Full name" maxlength="60" required></div>
+          </div>
+          <div class="form-row">
+            <div><label for="age">Age</label><input id="age" name="age" type="number" min="1" max="120" placeholder="Age" required></div>
+            <div><label for="seats">Seats</label><input id="seats" name="seats" type="number" min="1" max="5" value="1" required></div>
+          </div>
+          <p class="form-note" id="availability-note">Select a train to see seat availability.</p>
+          <button class="primary-button" type="submit"><span>Confirm reservation</span><span aria-hidden="true">↗</span></button>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <div class="panel-footnote"><span class="footnote-rule"></span> Your PNR will appear after confirmation.</div>
+      </section>
+
+      <section class="schedule-section" aria-labelledby="schedule-title">
+        <div class="section-heading schedule-heading">
+          <div><p class="eyebrow">LIVE AVAILABILITY</p><h2 id="schedule-title">Train schedule</h2></div>
+          <button class="text-button" id="refresh-button" type="button" title="Refresh train and booking data">Refresh <span aria-hidden="true">↻</span></button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>TRAIN</th><th>ROUTE</th><th>DEPARTS</th><th>SEATS</th><th><span class="sr-only">Book</span></th></tr></thead>
+            <tbody id="train-rows"><tr><td colspan="5" class="loading-cell">Loading schedule…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="schedule-foot"><span class="seat-key"><i></i> Seats remaining</span><span>All times local</span></div>
+      </section>
+    </div>
+
+    <section class="reservations-section" aria-labelledby="reservations-title">
+      <div class="section-heading reservations-heading">
+        <div><p class="eyebrow">PASSENGER MANIFEST</p><h2 id="reservations-title">Active reservations <span id="reservation-total" class="count-chip">0</span></h2></div>
+        <span class="manifest-note">Bookings are saved on this computer</span>
+      </div>
+      <div class="table-wrap reservations-table-wrap">
+        <table>
+          <thead><tr><th>PNR</th><th>PASSENGER</th><th>TRAIN &amp; ROUTE</th><th>AGE</th><th>SEATS</th><th><span class="sr-only">Manage</span></th></tr></thead>
+          <tbody id="reservation-rows"><tr><td colspan="6" class="loading-cell">Loading reservations…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <p class="page-footer"><span>RAILWAY DESK</span><span>Built for the journey ahead.</span></p>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
